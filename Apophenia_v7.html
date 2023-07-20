@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@1.0.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.0.0"></script>
     <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
-</head>
+    </head>
 <script>
     //const jsPsych = initJsPsych({
     ///    defult_iti: 0
@@ -30,8 +30,15 @@
         }
     });
 
-    timeline = [];
-    
+    var timeline = [];
+
+    /* init connection with pavlovia.org */
+    var pavlovia_init = '{'
+        type: "pavlovia",
+        command: "init"
+    '}';
+    timeline.push(pavlovia_init);
+
     var id = {
         type: jsPsychSurveyText,
         questions: [{ prompt: 'Please enter your ID.', name: 'id', required: true }],
@@ -275,6 +282,12 @@
         timeline_variables: test_stimuli,
     };
     timeline.push(test_procedure)
+
+    var pavlovia_finish = '{'
+        type: "pavlovia",
+        command: "finish"
+    '}';
+    timeline.push(pavlovia_finish);
 
     jsPsych.run(timeline);
 </script>
